@@ -4,6 +4,18 @@ const Employee = require('../models/Employee');
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 const PDFDocument = require('pdfkit');
+const roleMiddleware = require('../middleware/roleMiddleware');
+const {
+  createPayroll,
+  getPayrolls,
+  getPayrollById,
+  updatePayroll,
+  deletePayroll,
+  generatePayslipPDF,
+  exportPayrollCSV
+} = require('../controllers/payrollController');
+
+
 
 // Generate payroll
 router.post('/', protect, async (req, res) => {
