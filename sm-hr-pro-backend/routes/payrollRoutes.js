@@ -1,19 +1,19 @@
 const express = require('express');
-const Payroll = require('../models/Payroll');
-const Employee = require('../models/Employee');
-const { protect } = require('../middleware/authMiddleware');
+const Payroll = require('../models/Payroll.js');
+const Employee = require('../models/Employee.js');
+const { protect } = require('../middleware/authMiddleware.js');
 const router = express.Router();
 const PDFDocument = require('pdfkit');
-const roleMiddleware = require('../middleware/roleMiddleware');
-const {
-  createPayroll,
-  getPayrolls,
-  getPayrollById,
-  updatePayroll,
-  deletePayroll,
-  generatePayslipPDF,
-  exportPayrollCSV
-} = require('../controllers/payrollController');
+const roleMiddleware = require('../middleware/roleMiddleware.js');
+// const {
+//   createPayroll,
+//   getPayrolls,
+//   getPayrollById,
+//   updatePayroll,
+//   deletePayroll,
+//   generatePayslipPDF,
+//   exportPayrollCSV
+// } = require('../controllers/payrollController.js');
 
 
 

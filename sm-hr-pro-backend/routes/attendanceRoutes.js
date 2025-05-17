@@ -2,9 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const csv = require('csv-parser');
 const fs = require('fs');
-const Attendance = require('../models/Attendance');
-const Employee = require('../models/Employee');
-const { protect } = require('../middleware/authMiddleware');
+const Attendance = require('../models/Attendance.js');
+const Employee = require('../models/Employee.js');
+const { protect } = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });

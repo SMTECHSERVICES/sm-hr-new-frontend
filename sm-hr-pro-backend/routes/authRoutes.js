@@ -7,6 +7,7 @@ const router = express.Router();
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log(email,password)
   const user = await User.findOne({ email });
 
   if (!user || !bcrypt.compareSync(password, user.password)) {

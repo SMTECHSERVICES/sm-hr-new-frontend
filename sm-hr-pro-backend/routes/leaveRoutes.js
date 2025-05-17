@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/authMiddleware');
-const roleMiddleware = require('../middleware/roleMiddleware');
+const { protect } = require('../middleware/authMiddleware.js');
+const roleMiddleware = require('../middleware/roleMiddleware.js');
 const {
   applyLeave,
   getAllLeaves,
   getMyLeaves,
   updateLeaveStatus,
-} = require('../controllers/leaveController');
+} = require('../controllers/leaveController.js');
 
 // Employee apply leave
 router.post('/apply', protect, applyLeave);
