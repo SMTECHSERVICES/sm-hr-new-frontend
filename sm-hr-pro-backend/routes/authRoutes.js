@@ -1,31 +1,41 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+//const User = require('../models/User.js');
+const Employee = require('../models/Employee.js')
 const router = express.Router();
 
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   console.log(email,password)
-  const user = await User.findOne({ email });
+  const employee = await Employee.findOne({ email });
 
-  if (!user || !bcrypt.compareSync(password, user.password)) {
+  if (!employee || !bcrypt.compareSync(password, employee.password)) {
     return res.status(401).json({ message: 'Invalid credentials' });
   }
 
-  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET);
-  res.json({ token });
+  const token = jwt.sign({ id: employee._id}, process.env.JWT_SECRET);
+  res.status(200).json({ token });
 });
 
 // Register (optional - for testing)
 router.post('/register', async (req, res) => {
-  const { name, email, password, role } = req.body;
+try {
+    const { name, email, password, role,salary,department } = req.body;
+  console.log(req.body);
   const hashedPassword = bcrypt.hashSync(password, 10);
-  const user = new User({ name, email, password: hashedPassword, role });
+  const employee = new Employee({ name, email, password: hashedPassword,salary, role,department });
 
-  await user.save();
-  res.status(201).json({ message: 'User created' });
+  await employee.save();
+  const token = jwt.sign({ id: employee._id}, process.env.JWT_SECRET);
+  console.log(token)
+  return res.status(200).json({ message: 'new employee account created',token });
+} catch (error) {
+  return res.status(500).json({
+    message:'internal server error'
+  })
+}
 });
 
 module.exports = router;

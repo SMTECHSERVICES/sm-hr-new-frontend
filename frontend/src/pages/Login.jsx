@@ -10,9 +10,9 @@ function Login() {
   const handleLogin = async () => {
     try {
       const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      console.log('success')
+      console.log('success');
       localStorage.setItem('token', data.token);
-      navigate('/dashboard');
+      navigate('/empdashboard');
     } catch (error) {
       alert('Login failed');
     }
@@ -21,24 +21,41 @@ function Login() {
   return (
     <div className="h-screen flex items-center justify-center bg-gray-100">
       <div className="p-8 bg-white rounded shadow-md w-96">
-        <h2 className="text-xl font-bold mb-4">Login</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
+
         <input
           type="email"
           placeholder="Email"
-          className="w-full mb-2 p-2 border rounded"
+          className="w-full mb-3 p-2 border rounded"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <input
           type="password"
           placeholder="Password"
-          className="w-full mb-2 p-2 border rounded"
+          className="w-full mb-4 p-2 border rounded"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="bg-blue-500 text-white px-4 py-2 rounded w-full" onClick={handleLogin}>
+
+        <button
+          className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition"
+          onClick={handleLogin}
+        >
           Login
         </button>
+
+        {/* Register Link */}
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Don&apos;t have an account?{' '}
+          <a
+            href="/register"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Register here
+          </a>
+        </p>
       </div>
     </div>
   );
