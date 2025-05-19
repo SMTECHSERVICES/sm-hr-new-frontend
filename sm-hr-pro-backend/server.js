@@ -2,9 +2,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const leaveRoutes = require('./routes/leaveRoutes.js');
+const leaveRoutes = require('./routes/employeeLeaveRoute.js')
 const adminAuth = require('./routes/admin/authRoute.js');
-const adminEmployee = require('./routes/admin/employeeRoute.js')
+const adminEmployee = require('./routes/admin/employeeRoute.js');
+const adminLeave = require("./routes/admin/leaveRoute.js")
 
 dotenv.config();
 connectDB();
@@ -18,11 +19,15 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/employee', require('./routes/employeeRoutes'));
-app.use('/api/payrolls', require('./routes/payrollRoutes'));
-app.use('/api/attendance', require('./routes/attendanceRoutes'));
+//app.use('/api/payrolls', require('./routes/payrollRoutes'));
+//app.use('/api/attendance', require('./routes/attendanceRoutes'));
 app.use('/api/leaves', leaveRoutes);
+
+//ADMIN ROUTES
+
 app.use('/api/admin/auth',adminAuth);
-app.use('/api/admin/employees',adminEmployee)
+app.use('/api/admin/employees',adminEmployee);
+app.use('/api/admin/leave',adminLeave);
 
 
 const PORT = process.env.PORT || 5000;

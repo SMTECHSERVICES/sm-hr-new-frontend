@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware.js');
-const roleMiddleware = require('../middleware/roleMiddleware.js');
+//const roleMiddleware = require('../middleware/roleMiddleware.js');
 const {
   applyLeave,
   getAllLeaves,

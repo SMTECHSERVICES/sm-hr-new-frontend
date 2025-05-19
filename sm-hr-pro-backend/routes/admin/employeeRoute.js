@@ -75,9 +75,9 @@ router.post('/attendance/:id', async (req, res) => {
 });
 
 router.get('/:id',async(req,res)=>{
-  console.log('hie')
+ // console.log('hie')
   const id = req.params.id;
-  console.log(id)
+  //console.log(id)
   const employee = await Employee.findById(id).select("-password");
 
   if(!employee){

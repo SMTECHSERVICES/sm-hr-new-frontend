@@ -15,7 +15,13 @@ import AdminLogin from './pages/admin/AdminLogin';
 import MarkAttendance from './pages/admin/EmployeeList'
 import EmployeeDetail from './pages/admin/EmployeeDetail';
 import AdminLayout from './layouts/AdminLayout';
-
+import EmployeeLayout from './layouts/EmployeeLayout';
+import PersonalAttendance from './pages/PersonalAttendance';
+import LeaveRequestForm  from './pages/LeaveRequestForm';
+import LeaveHistory from './pages/LeaveHistory';
+import LeaveRequests from './pages/admin/LeaveRequests';
+import LeaveReasonDetail from './pages/admin/LeaveReasonDetail';
+import MarkAttendancePage from './pages/MarkAttendancePage'
 
 
 function App() {
@@ -28,19 +34,25 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path='/register' element={<RegisterForm />} />
         
-        <Route path="/empdashboard" element={<EmployeeDashboard />} />
+        <Route path="/empdashboard" element={<EmployeeLayout><EmployeeDashboard /></EmployeeLayout>} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/payrolls" element={<Payrolls />} />
-        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/my-attendance" element={<EmployeeLayout><PersonalAttendance /></EmployeeLayout>} />
+        <Route path='/leave-request' element={<EmployeeLayout><LeaveRequestForm /></EmployeeLayout>} />
+        <Route path='//leave-history' element={<EmployeeLayout><LeaveHistory /></EmployeeLayout>} />
         <Route path="/my-payslips" element={<MyPayslips />} />
-        <Route path="/my-attendance" element={<MyAttendance />} />
+         <Route path="/mark-attendance" element={<EmployeeLayout><MarkAttendancePage /></EmployeeLayout>} />
+        {/* <Route path="/my-attendance" element={<MyAttendance />} /> */}
 
         {/* Admin only routes */}
 
         <Route path='/admin' element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
         <Route path='/admin/attendance' element={<AdminLayout><MarkAttendance /></AdminLayout>} />
+        
+        <Route path='/admin/leave-requests' element={<AdminLayout><LeaveRequests /></AdminLayout>} />
         <Route path='/admin/employee/:id' element={<AdminLayout><EmployeeDetail /></AdminLayout>} />
+        <Route path='/admin/leave/:id' element={<AdminLayout><LeaveReasonDetail /></AdminLayout>} />
       </Routes>
       </BrowserRouter>
     </>

@@ -8,7 +8,7 @@ const router = express.Router();
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log(email,password)
+  //console.log(email,password)
   const employee = await Employee.findOne({ email });
 
   if (!employee || !bcrypt.compareSync(password, employee.password)) {
@@ -23,13 +23,13 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
 try {
     const { name, email, password, role,salary,department } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   const hashedPassword = bcrypt.hashSync(password, 10);
   const employee = new Employee({ name, email, password: hashedPassword,salary, role,department });
 
   await employee.save();
   const token = jwt.sign({ id: employee._id}, process.env.JWT_SECRET);
-  console.log(token)
+  //console.log(token)
   return res.status(200).json({ message: 'new employee account created',token });
 } catch (error) {
   return res.status(500).json({
