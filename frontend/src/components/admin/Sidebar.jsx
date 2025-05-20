@@ -7,7 +7,7 @@ function Sidebar() {
       <h2 className="text-2xl font-bold mb-8 flex gap-2"><img src='/smlogo.png' className='h-11 w-11 ' alt="" />sm-hr-admin</h2>
       <nav className="flex flex-col gap-4">
         <NavLink to="/admin/dashboard" className="hover:text-gray-300">Dashboard</NavLink>
-        <NavLink to="/admin/attendance" className="hover:text-gray-300">Attendance</NavLink>
+        <NavLink to="/admin/employees" className="hover:text-gray-300">Employees</NavLink>
         <NavLink to="/admin/payroll" className="hover:text-gray-300">Payroll</NavLink>
         <NavLink to="/admin/leave-requests" className="hover:text-gray-300">Leave Requests</NavLink>
         <NavLink to="/admin/attendance-history" className="hover:text-gray-300">Attendance History</NavLink>

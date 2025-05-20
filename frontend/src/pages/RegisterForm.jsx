@@ -11,11 +11,12 @@ const RegisterForm = () => {
     password: '',
     department: '',
     role: 'employee',
+    avatar:null
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value,files } = e.target;
+    setFormData(prev => ({ ...prev, [name]:files ? files[0] : value }));
   };
 
   const handleSubmit = async (e) => {
@@ -23,7 +24,17 @@ const RegisterForm = () => {
     // console.log('Submitting:', formData);
     // Send to backend via fetch or axios here
     try {
-      const data = await axios.post('http://localhost:5000/api/auth/register',formData);
+    const dataToSend = new FormData();
+Object.entries(formData).forEach(([key, value]) => {
+  dataToSend.append(key, value);
+});
+
+const data = await axios.post('http://localhost:5000/api/auth/register', dataToSend, {
+  headers: {
+    "Content-Type": "multipart/form-data"
+  }
+});
+console.log(data)
      
     localStorage.setItem('token', data?.data.token);
     
@@ -37,7 +48,16 @@ const RegisterForm = () => {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
       <h2 className="text-2xl font-bold mb-4 text-center">Register Employee</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" encType='multipart/form-data'>
+
+        <input
+         type='file'
+          name="avatar"
+          onChange={handleChange}
+          className="w-full p-2 border rounded-md"
+          required
+        />
+
         
         <input
           type="text"

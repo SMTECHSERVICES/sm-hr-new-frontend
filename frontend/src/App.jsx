@@ -48,7 +48,7 @@ function App() {
 
         <Route path='/admin' element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
-        <Route path='/admin/attendance' element={<AdminLayout><MarkAttendance /></AdminLayout>} />
+        <Route path='/admin/employees' element={<AdminLayout><MarkAttendance /></AdminLayout>} />
         
         <Route path='/admin/leave-requests' element={<AdminLayout><LeaveRequests /></AdminLayout>} />
         <Route path='/admin/employee/:id' element={<AdminLayout><EmployeeDetail /></AdminLayout>} />

@@ -36,14 +36,28 @@ const EmployeeDashboard = () => {
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-8">
       {/* Profile Section */}
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Employee Profile</h2>
-        <p><strong>Name:</strong> {employee.name}</p>
-        <p><strong>Email:</strong> {employee.email}</p>
-        <p><strong>Department:</strong> {employee.department}</p>
-        <p><strong>Role:</strong> {employee.role}</p>
-        <p><strong>Salary:</strong> ₹{employee.salary}</p>
-      </div>
+   <div className="bg-white p-6 rounded shadow-md flex items-start gap-6">
+  {/* Profile Details */}
+  <div className="flex-1">
+    <h2 className="text-xl font-semibold mb-4">Employee Profile</h2>
+    <p><strong>Name:</strong> {employee.name}</p>
+    <p><strong>Email:</strong> {employee.email}</p>
+    <p><strong>Department:</strong> {employee.department}</p>
+    <p><strong>Role:</strong> {employee.role}</p>
+    <p><strong>Salary:</strong> ₹{employee.salary}</p>
+  </div>
+
+  {/* Profile Image */}
+  {employee.avatar && (
+<div className="w-40 h-40 border shadow-sm overflow-hidden">
+      <img
+        src={employee.avatar}
+        alt="Profile"
+        className="w-full h-full object-cover"
+      />
+    </div>
+  )}
+</div>
 
       {/* Attendance Section */}
       <div className="bg-white p-6 rounded shadow-md">

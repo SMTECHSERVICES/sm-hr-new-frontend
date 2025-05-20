@@ -85,8 +85,13 @@ router.get('/:id',async(req,res)=>{
       message:'Employee does not exist'
     })
   }
+
+  const attendanceRecord = await Attendance.find({employee:id})
+  console.log(employee)
+
   return res.status(200).json({
-    employee
+    employee,
+    attendanceRecord
   })
 
 })

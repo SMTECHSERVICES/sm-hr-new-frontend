@@ -10,6 +10,10 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     enum: ['admin', 'employee'],
     default: 'employee'
+  },
+  avatar:{
+    type:String,
+    require:true
   }
 });
 
