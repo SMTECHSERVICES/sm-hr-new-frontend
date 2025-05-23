@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const EmployeeDashboard = () => {
@@ -16,11 +15,9 @@ const EmployeeDashboard = () => {
 
         const empRes = await axios.get('http://localhost:5000/api/employee/me', { headers });
         const attendanceRes = await axios.get('http://localhost:5000/api/employee/attendance/me', { headers });
-        //const leaveRes = await axios.get('http://localhost:5000/api/leave/me', { headers });
 
         setEmployee(empRes?.data);
         setAttendance(attendanceRes?.data.attendanceReport);
-        //setLeaves(leaveRes.data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -34,12 +31,14 @@ const EmployeeDashboard = () => {
   if (loading) return <div className="text-center mt-10">Loading...</div>;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto space-y-8">
+      <h2 className="text-xl sm:text-2xl font-bold mb-6 text-center">Employee Dashboard</h2>
+
       {/* Profile Section */}
-   <div className="bg-white p-6 rounded shadow-md flex items-start gap-6">
-  {/* Profile Details */}
-  <div className="flex-1">
-    <h2 className="text-xl font-semibold mb-4">Employee Profile</h2>
+      <div className="bg-white p-4 sm:p-6 rounded shadow-md flex flex-col sm:flex-row items-center sm:items-start gap-6">
+  {/* Profile Details (left on sm+, below image on xs) */}
+  <div className="flex-1 min-w-[250px] text-center sm:text-left order-2 sm:order-1">
+    <h2 className="text-lg sm:text-xl font-semibold mb-4">Employee Profile</h2>
     <p><strong>Name:</strong> {employee.name}</p>
     <p><strong>Email:</strong> {employee.email}</p>
     <p><strong>Department:</strong> {employee.department}</p>
@@ -47,9 +46,9 @@ const EmployeeDashboard = () => {
     <p><strong>Salary:</strong> ₹{employee.salary}</p>
   </div>
 
-  {/* Profile Image */}
+  {/* Profile Image (top on xs, right on sm+) */}
   {employee.avatar && (
-<div className="w-40 h-40 border shadow-sm overflow-hidden">
+    <div className="w-24 h-24 sm:w-40 sm:h-40 border shadow-sm overflow-hidden  order-1 sm:order-2">
       <img
         src={employee.avatar}
         alt="Profile"
@@ -59,10 +58,11 @@ const EmployeeDashboard = () => {
   )}
 </div>
 
+
       {/* Attendance Section */}
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Daily Attendance</h2>
-        <table className="w-full text-sm">
+      <div className="bg-white p-4 sm:p-6 rounded shadow-md overflow-x-auto">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Daily Attendance</h2>
+        <table className="w-full text-sm min-w-[300px]">
           <thead>
             <tr className="text-left border-b">
               <th className="p-2">Date</th>
@@ -73,7 +73,7 @@ const EmployeeDashboard = () => {
             {attendance.map((entry, idx) => (
               <tr key={idx} className="border-b">
                 <td className="p-2">{new Date(entry.date).toLocaleDateString()}</td>
-                <td className="p-2">{entry.status}</td>
+                <td className="p-2 capitalize">{entry.status}</td>
               </tr>
             ))}
           </tbody>
@@ -81,31 +81,11 @@ const EmployeeDashboard = () => {
       </div>
 
       {/* Salary Slip */}
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Salary Slip</h2>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      <div className="bg-white p-4 sm:p-6 rounded shadow-md text-center">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Salary Slip</h2>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors duration-300">
           Download Latest Salary Slip (PDF)
         </button>
-      </div>
-
-      {/* Leave Application */}
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-xl font-semibold mb-4">Apply for Leave</h2>
-        <form className="space-y-4">
-          <input type="date" className="w-full border p-2 rounded" required />
-          <textarea
-            placeholder="Reason"
-            className="w-full border p-2 rounded"
-            rows={3}
-            required
-          ></textarea>
-          <button
-            type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            Apply Leave
-          </button>
-        </form>
       </div>
     </div>
   );

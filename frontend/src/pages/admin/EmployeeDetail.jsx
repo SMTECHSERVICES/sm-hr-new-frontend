@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 function EmployeeDetail() {
+
+  const navigate = useNavigate();
   const { id } = useParams();
   const [employee, setEmployee] = useState({});
   const [attendance, setAttendance] = useState([]);
@@ -42,13 +45,7 @@ function EmployeeDetail() {
         <h2 className="text-2xl font-semibold mb-6">Employee Details</h2>
         <div className="flex items-start gap-6">
           {/* Avatar */}
-          <div className="w-32 h-32 rounded overflow-hidden border shadow">
-            <img
-              src={employee.avatar || '/default-avatar.png'}
-              alt="Employee Avatar"
-              className="w-full h-full object-cover"
-            />
-          </div>
+          
           {/* Text Details */}
           <div className="grid grid-cols-2 gap-4 w-full">
             <p><strong>Name:</strong> {employee.name}</p>
@@ -56,6 +53,13 @@ function EmployeeDetail() {
             <p><strong>Department:</strong> {employee.department}</p>
             <p><strong>Role:</strong> {employee.role}</p>
             <p><strong>Salary:</strong> ₹{employee.salary}</p>
+          </div>
+          <div className="w-32 h-32 rounded overflow-hidden border shadow">
+            <img
+              src={employee.avatar || '/default-avatar.png'}
+              alt="Employee Avatar"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>
@@ -100,6 +104,15 @@ function EmployeeDetail() {
           </tbody>
         </table>
       </div>
+
+      <div className="flex justify-end">
+  <button
+    onClick={() => navigate(`/admin/payroll/generate/${employee._id}`)}
+    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+  >
+    Generate Payroll
+  </button>
+</div>
     </div>
   );
 }

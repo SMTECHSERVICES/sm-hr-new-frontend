@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AuthLayout from '../layouts/shared/AuthLayout';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -19,7 +20,8 @@ function Login() {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
+   <AuthLayout>
+     <div className=" flex items-center justify-center bg-gray-100">
       <div className="p-8 bg-white rounded shadow-md w-96">
         <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
 
@@ -55,9 +57,20 @@ function Login() {
           >
             Register here
           </a>
+
+        </p>
+         <p className="mt-4 text-center text-sm text-gray-600">
+          
+          <a
+            href="/admin"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Login as Admin
+          </a>
         </p>
       </div>
     </div>
+   </AuthLayout>
   );
 }
 

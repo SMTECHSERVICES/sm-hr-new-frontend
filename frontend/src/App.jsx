@@ -21,7 +21,9 @@ import LeaveRequestForm  from './pages/LeaveRequestForm';
 import LeaveHistory from './pages/LeaveHistory';
 import LeaveRequests from './pages/admin/LeaveRequests';
 import LeaveReasonDetail from './pages/admin/LeaveReasonDetail';
-import MarkAttendancePage from './pages/MarkAttendancePage'
+import MarkAttendancePage from './pages/MarkAttendancePage';
+import CreatePayroll from './pages/admin/CreatePayroll';
+import GetSalarySlip from './pages/GetSalarySlip';
 
 
 function App() {
@@ -42,6 +44,7 @@ function App() {
         <Route path='//leave-history' element={<EmployeeLayout><LeaveHistory /></EmployeeLayout>} />
         <Route path="/my-payslips" element={<MyPayslips />} />
          <Route path="/mark-attendance" element={<EmployeeLayout><MarkAttendancePage /></EmployeeLayout>} />
+         <Route path="/salary-slip" element={<EmployeeLayout><GetSalarySlip /></EmployeeLayout>} />
         {/* <Route path="/my-attendance" element={<MyAttendance />} /> */}
 
         {/* Admin only routes */}
@@ -53,6 +56,7 @@ function App() {
         <Route path='/admin/leave-requests' element={<AdminLayout><LeaveRequests /></AdminLayout>} />
         <Route path='/admin/employee/:id' element={<AdminLayout><EmployeeDetail /></AdminLayout>} />
         <Route path='/admin/leave/:id' element={<AdminLayout><LeaveReasonDetail /></AdminLayout>} />
+        <Route path='/admin/payroll/generate/:id' element={<AdminLayout><CreatePayroll /></AdminLayout>} />
       </Routes>
       </BrowserRouter>
     </>

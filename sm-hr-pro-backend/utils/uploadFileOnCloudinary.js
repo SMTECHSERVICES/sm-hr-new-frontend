@@ -14,15 +14,18 @@ dotenv.config();
         api_key: process.env.CLOUDINARY_API_KEY, 
         api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
     });
-const uploadOnCloudinary = async(localfilePath)=>{
+
+const uploadFileOnCloudinary = async(localfilePath)=>{
 
     if(!localfilePath) return
 
     try {
-        const response = await cloudinary.uploader.upload(localfilePath,{
-            public_id:randomUUID(),
-            resource_type:'auto'
-        })
+         const response = await cloudinary.uploader.upload(localfilePath, {
+      public_id: randomUUID(),
+      type: 'upload',
+      resource_type: 'raw', // ✅ Important for PDF/ZIP/Non-image files
+      format: 'pdf' // optional, but enforces PDF extension
+    });
         fs.unlinkSync(localfilePath);
         return response.secure_url
     } catch (error) {
@@ -36,5 +39,4 @@ const uploadOnCloudinary = async(localfilePath)=>{
 
 }
 
-
-module.exports = uploadOnCloudinary
+module.exports = uploadFileOnCloudinary;

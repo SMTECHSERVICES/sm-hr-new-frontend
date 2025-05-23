@@ -18,6 +18,59 @@ router.get('/all', async (req, res) => {
  return res.json(employees);
 });
 
+
+
+router.get('/allDetails', async (req, res) => {
+  try {
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+    // Total employees
+    const employeesCount = await Employee.countDocuments();
+
+    // Aggregation to unwind attendanceReport and filter today's records
+    const attendanceAggregation = await Attendance.aggregate([
+      { $unwind: "$attendanceReport" },
+      {
+        $match: {
+          "attendanceReport.date": { $gte: startOfDay, $lte: endOfDay }
+        }
+      },
+      {
+        $group: {
+          _id: "$attendanceReport.status",
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Prepare counts default to 0
+    let presentCount = 0;
+    let absentCount = 0;
+    let leaveCount = 0;
+
+    // Map aggregation results to counts
+    attendanceAggregation.forEach(item => {
+      if (item._id === 'Present') presentCount = item.count;
+      else if (item._id === 'Absent') absentCount = item.count;
+      else if (item._id === 'Leave') leaveCount = item.count;
+    });
+
+    res.status(200).json({
+      employeesCount,
+      presentCount,
+      absentCount,
+      leaveCount
+    });
+
+  } catch (err) {
+    console.error('Error fetching allDetails:', err);
+    res.status(500).json({ error: 'Server Error' });
+  }
+});
+
+
 router.post('/attendance/:id', async (req, res) => {
   try {
     const empId = req.params.id;
@@ -87,7 +140,7 @@ router.get('/:id',async(req,res)=>{
   }
 
   const attendanceRecord = await Attendance.find({employee:id})
-  console.log(employee)
+  //console.log(employee)
 
   return res.status(200).json({
     employee,

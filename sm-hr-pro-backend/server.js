@@ -5,7 +5,8 @@ const connectDB = require('./config/db');
 const leaveRoutes = require('./routes/employeeLeaveRoute.js')
 const adminAuth = require('./routes/admin/authRoute.js');
 const adminEmployee = require('./routes/admin/employeeRoute.js');
-const adminLeave = require("./routes/admin/leaveRoute.js")
+const adminLeave = require("./routes/admin/leaveRoute.js");
+const payroll = require('./routes/admin/payroll.js')
 
 dotenv.config();
 connectDB();
@@ -29,6 +30,7 @@ app.use('/api/leaves', leaveRoutes);
 app.use('/api/admin/auth',adminAuth);
 app.use('/api/admin/employees',adminEmployee);
 app.use('/api/admin/leave',adminLeave);
+app.use('/api/admin/payroll',payroll)
 
 
 const PORT = process.env.PORT || 5000;

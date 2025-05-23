@@ -3,7 +3,7 @@ const Employee = require('../models/Employee');
 const { protect } = require('../middleware/authMiddleware.js');
 const roleMiddleware = require('../middleware/roleMiddleware.js');
 const Attendance = require('../models/Attendance.js')
-
+const Payroll = require('../models/Payroll.js')
 const router = express.Router();
 
 router.use(protect)
@@ -89,6 +89,13 @@ router.post('/mark-attendance',async(req,res)=>{
   }
 
 })
+
+// GET payroll by employee ID
+router.get('/payroll', async (req, res) => {
+  const payrolls = await Payroll.find({ employee: req.employee.id }).sort({ generatedDate: -1 });
+  res.json(payrolls);
+});
+
 
 
 

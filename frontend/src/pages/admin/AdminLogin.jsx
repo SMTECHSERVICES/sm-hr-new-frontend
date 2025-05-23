@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png';
+
 const AdminLogin = () => {
   const [adminSecret, setAdminSecret] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Admin Secret:', adminSecret);
-    // Add your validation or API call here
-   try {
-     const {data} =await axios.post('http://localhost:5000/api/admin/auth/login',{adminSecret});
-    // console.log(data);
-    // console.log(data.token)
-       localStorage.setItem('token', data.token);
+    try {
+      const { data } = await axios.post('http://localhost:5000/api/admin/auth/login', { adminSecret });
+      localStorage.setItem('token', data.token);
       navigate('/admin/dashboard');
-   } catch (error) {
-    alert('an unexpected error occured')
-    console.log(error)
-   }
+    } catch (error) {
+      alert('An unexpected error occurred');
+      console.log(error);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200 relative p-4">
+      
+      {/* Logo in top-left */}
+      <div className="absolute top-4 left-4">
+        <img src={logo} alt="Logo" className="h-12 w-auto" />
+      </div>
+
+      {/* Login form */}
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm"
@@ -44,7 +49,6 @@ const AdminLogin = () => {
         />
 
         <button
-          
           type="submit"
           className="w-full py-2 px-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition duration-300"
         >
